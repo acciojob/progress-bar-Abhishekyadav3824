@@ -1,29 +1,127 @@
-/*  your css code here. If applicable */
-    .container{
-      display: flex;
-      justify-content: space-evenly;
-      margin-bottom: 20px;
+:root {
+      --size: 56px;
+      --track-height: 6px;
+      --inactive-border: #cfcfcf;
+      --active-color: #4caf50;
+      --bg: #ffffff;
+      --btn-primary: #007bff;
+      --btn-secondary: #6c757d;
     }
+
+    body{
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      margin: 40px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      background: #f7f7f9;
+      color: #222;
+    }
+
+    .progress-container{
+      width: min(800px, 92%);
+      position: relative;
+      padding: 30px 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    }
+
+    /* background track */
+    .track{
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      top: calc(50% - var(--track-height) / 2);
+      height: var(--track-height);
+      background: #e6e6e6;
+      border-radius: 8px;
+      z-index: 1;
+    }
+
+    /* filled progress */
+    .progress{
+      position: absolute;
+      left: 20px;
+      top: calc(50% - var(--track-height) / 2);
+      height: var(--track-height);
+      width: 0%;
+      border-radius: 8px;
+      z-index: 2;
+      background: linear-gradient(90deg, var(--active-color), #2e9b3a);
+      transition: width 260ms ease;
+    }
+
+    /* circle row */
+    .circles{
+      display:flex;
+      justify-content:space-between;
+      gap: 8px;
+      position: relative;
+      z-index: 3; /* above track */
+      padding: 6px 20px;
+      box-sizing: border-box;
+    }
+
     .circle{
-      border: 2px solid black;
-      height: 100px;
-      width: 100px;
+      width: var(--size);
+      height: var(--size);
+      min-width: var(--size);
+      min-height: var(--size);
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 20px;
-      background-color: white;
-      transition: background-color 0.3s, border-color 0.3s;
+      border: 3px solid var(--inactive-border);
+      background: var(--bg);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 700;
+      user-select: none;
+      transition: background 200ms, border-color 200ms, color 200ms, transform 140ms;
+      color: #222;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
     }
-    .active{
-      background-color: lightgreen;
-      border-color: green;
+
+    .circle.active{
+      background: var(--active-color);
+      border-color: var(--active-color);
+      color: #fff;
+      transform: translateY(-3px);
     }
+
+    .controls{
+      margin-top: 20px;
+      display:flex;
+      justify-content:center;
+      gap: 12px;
+    }
+
     button{
-      padding: 10px 20px;
-      margin: 10px;
-      font-size: 16px;
-	cursor:pointer;
+      font-size: 15px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      color: #fff;
+      transition: transform 120ms ease;
+    }
+
+    button:active{ transform: translateY(1px); }
+
+    #prev{
+      background: var(--btn-secondary);
+    }
+
+    #next{
+      background: var(--btn-primary);
+    }
+
+    button:disabled{
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* responsive */
+    @media (max-width:420px){
+      :root { --size:48px; }
     }
